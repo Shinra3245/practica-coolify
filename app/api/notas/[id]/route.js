@@ -4,7 +4,7 @@ import { query } from '@/lib/db';
 // PUT: Modificar nota (título o estado completado)
 export async function PUT(request, { params }) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const body = await request.json();
 
         const result = await query(
@@ -29,7 +29,7 @@ export async function PUT(request, { params }) {
 // DELETE: Eliminar una nota
 export async function DELETE(request, { params }) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const result = await query('DELETE FROM notas WHERE id = $1 RETURNING *;', [id]);
 
         if (result.rowCount === 0) {
